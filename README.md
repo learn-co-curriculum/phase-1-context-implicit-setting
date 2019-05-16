@@ -56,7 +56,7 @@ best pronoun to use was `this`, and it seems sensible to us.
 
 When a function is called, it gets an execution context passed in. That context
 will be whatever the function was 'called on' - the object to the left of the
-`.`  where it's called. In the below example, since `byronPoodle` is to the
+`.`  where it's called. In the below example, `byronPoodle` is to the
 left of the `.`. In `byronPoodle.warn()`, `warn` gets `byronPoodle` as its
 context.
 
