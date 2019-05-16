@@ -114,7 +114,8 @@ contextReturner() === window //=> true
 
 When no object is to the left of the function, JavaScript invisibly adds **the
 global object**. Thus `contextReturner` is, from JavaScript's point of view,
-called as `window.contextReturner`.
+the same as `window.contextReturner`. You can check for yourself in the console: `window.contextReturner === contextReturner //=> true`.
+
 
 A simple way of saying it: when you call `someFunction()`, the context inside
 of `someFunction` will be the thing to the left of the `.`.  Since there's
