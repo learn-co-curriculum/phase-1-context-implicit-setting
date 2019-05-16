@@ -73,6 +73,8 @@ byronPoodle.warn()
 // LOG: Byron issues an ear-rupturing atomic bark when he hears noises in the apartment hallway
 ```
 
+As you can see, `this` was set to `byronPoodle`. So, `this.name` was `byronPoodle.name` (`"Byron"`), `this.sonicAttack` was `byronPoodle.sonicAttack` (`"ear-rupturing atomic bark"`) and `this.mostHatedThing` was `byronPoodle.mostHatedThing` (`"noises in the apartment hallway"`)
+
 A simple way of saying it: when you call `someObject.someFunction()`, the
 context inside of `someFunction` will be the thing to the left of the `.`:
 `someObject`.
