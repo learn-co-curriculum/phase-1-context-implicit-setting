@@ -229,10 +229,10 @@ some variation!) in a runtime of your choice.
 
 To sum up the discussion thus far:
 
-1. ***Execution context is set at function call-time, implicitly or explicitly.***
-2. ***In "bare" function calls, the context is automatically set to the global object unless prevented by `"use strict"`.***
-3. ***In "non-bare" function calls, the context is automatically set to the "object to the left of the dot."***
-4. ***(For Object-Oriented JavaScript) Execution context defaults to the new thing being created in a `class`'s `constructor`***
+1. Execution context is set at function call-time, implicitly or explicitly.
+2. In "bare" function calls, the context is automatically set to the global object unless prevented by `"use strict"`.
+3. In "non-bare" function calls, the context is automatically set to the "object to the left of the dot."
+4. (For Object-Oriented JavaScript) Execution context defaults to the new thing being created in a `class`'s `constructor`
 
 This covers the _implicit_ context-setting rules. We'll now learn about the
 _explicit_ context-setting rules.
