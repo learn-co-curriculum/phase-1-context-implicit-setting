@@ -143,6 +143,7 @@ function a() {
 }
 
 a()() === window //=> true
+```
 
 ## Prevent Implicitly Setting a Global Object In Function Calls With `use strict`
 
