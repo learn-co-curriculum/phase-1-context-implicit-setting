@@ -55,9 +55,11 @@ best pronoun to use was `this`, and it seems sensible to us.
 
 ## Access Implicitly-Set Context in an Object-Contained Function Expression
 
-When a function is called, and that function is accessed via a property on a
-JavaScript `Object`, the function, during its execution will have its context,
-accessible through the `this` keyword, set to the `Object`.
+When a function is called, it gets an execution context passed in. That context
+will be whatever the function was 'called on' - the object to the left of the
+`.`  where it's called. In the below example, since `byronPoodle` is to the
+left of the `.`. In `byronPoodle.warn()`, `warn` gets `byronPoodle` as its
+context.
 
 ```js
 let byronPoodle = {
@@ -188,9 +190,9 @@ with OO in JavaScript (or anywhere for that matter!), that's OK, just remember
 this rule for later.  When you see `this` inside of a class definition in
 JavaScript, come back and make sure you understand this rule.
 
-It's for convenience and feels "natural" from a linguistic point of
-view: "The thing we're setting up should be the default context for work during
-its construction in its own function that's called `constructor`."
+It's for convenience and feels "natural" from a linguistic point of view: "The
+thing we're setting up should be the default context for work during its
+construction in its own function that's called `constructor`."
 
 ```js
 class Poodle{
