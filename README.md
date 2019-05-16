@@ -6,7 +6,7 @@
 * Define `this`
 * Access implicitly-set context in an Object-contained function expression
 * Access implicitly-set context global Object in a function expression
-* Prevent implicitly setting in function calls with `use strict`
+* Prevent implicitly setting context in function calls with `use strict`
 * Use available JavaScript runtimes to validate understanding
 
 ## Introduction
