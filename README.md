@@ -1,6 +1,5 @@
 # JavaScript Advanced Functions: Context and Implicit Setting
 
-
 ## Learning Goals
 
 * Define execution context
