@@ -13,7 +13,7 @@
 
 In the previous lesson we provided definitions of:
 
-* "Execution Context"
+* Execution Context
 * `this`
 * `call`
 * `apply`
@@ -55,7 +55,7 @@ best pronoun to use was `this`, and it seems sensible to us.
 ## Access Implicitly-Set Context in an Object-Contained Function Expression
 
 When a function is called, it gets an execution context passed in. That context
-will be whatever the function was 'called on' - the object to the left of the
+will be whatever the function was 'called on' — the object to the left of the
 `.`  where it's called. In the below example, `byronPoodle` is to the left of
 the `.`. In `byronPoodle.warn()`, `warn` gets `byronPoodle` as its context.
 
@@ -75,7 +75,7 @@ byronPoodle.warn()
 As you can see, `this` was set to `byronPoodle`. So, `this.name` was
 `byronPoodle.name` (`"Byron"`), `this.sonicAttack` was `byronPoodle.sonicAttack`
 (`"ear-rupturing atomic bark"`) and `this.mostHatedThing` was
-`byronPoodle.mostHatedThing` (`"noises in the apartment hallway"`)
+`byronPoodle.mostHatedThing` (`"noises in the apartment hallway"`).
 
 A simple way of saying it: when you call `someObject.someFunction()`, the
 context inside of `someFunction` will be the thing to the left of the `.`:
@@ -115,13 +115,9 @@ contextReturner() === window //=> true
 ```
 
 When no object is to the left of the function, JavaScript invisibly adds **the
-global object**. Thus `contextReturner` is, from JavaScript's point of view, the
-same as `window.contextReturner`. You can check for yourself in the console:
-`window.contextReturner === contextReturner //=> true`.
-
-A simple way of saying it: when you call `someFunction()`, the context inside of
-`someFunction` will be the thing to the left of the `.`.  Since there's nothing
-there, JavaScript swaps in the global object.
+global object**. A simple way of saying it: when you call `someFunction()`, the
+context inside of `someFunction` will be the thing to the left of the `.`.
+Since there's nothing there, JavaScript swaps in the global object.
 
 In browser-based JavaScript environment (or "JavaScript runtime"), the global
 object is called `window`. In NodeJS, it's called `global`.
@@ -133,8 +129,7 @@ let locationReturner = function() {
   return this.location.host
 }
 
-locationReturner() //=> URL host serving this page e.g. developer.mozilla.org
-// Implicitly: window.locationReturner(); this will be `window` in the function
+locationReturner() //=> URL host serving the current page e.g. developer.mozilla.org
 ```
 
 It's worth noting that even in a function inside of another function, the inner
