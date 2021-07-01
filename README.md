@@ -14,18 +14,21 @@ In the previous lesson we provided definitions of:
 * `apply`
 * `bind`
 
-Recall that, when a function in JavaScript ***is called***, it is provided an
-_execution context_. This _execution context_ is a JavaScript `Object` that is
-either implicitly or explicitly passed at the time of the function's call. We
-_explicitly_ pass a context by using the `call`, `apply`, or `bind` method and
-passing the desired context object as an argument. We will learn the explicit
-approach in the next lesson.
+Recall that, when a function in JavaScript ***is called***, a _function
+execution context_ is created. This execution context includes an object that is
+passed to the function at the time it's called, either implicitly or explicitly.
+This object can be referred to from inside the function using the `this`
+keyword.
+
+We _explicitly_ pass the object by using the `call`, `apply`, or `bind` method
+and passing the desired context object as an argument. We will learn the
+explicit approach in the next lesson.
 
 But what if we call a function _without_ using one of those methods — how does
-JavaScript know what execution context to pass to the function? JavaScript uses
-a couple of simple rules to determine what the execution context should be,
-depending on the circumstances under which a function is called. We will learn
-how this works in this lesson.
+JavaScript know what object to pass to the function? JavaScript uses a couple of
+simple rules to determine what object should be passed along, depending on the
+circumstances under which a function is called. We will learn how this works in
+this lesson.
 
 > **Top Tip**: as always, it's important to follow along with the examples we'll
 > be presenting. We encourage you to get familiar with two different programming
@@ -38,9 +41,9 @@ how this works in this lesson.
 ## How JavaScript Implicitly Sets Execution Context
 
 Under most circumstances, we do not need to use `call`, `apply`, or `bind` to
-explicitly pass the execution context. Instead we depend on JavaScript to
-determine the execution context _implicitly_. As a result, it's important to
-understand how that works. There are two basic conditions we need to consider:
+explicitly pass the `this` object. Instead we depend on JavaScript to determine
+what it should be _implicitly_. As a result, it's important to understand how
+that works. There are two basic conditions we need to consider:
 
 1. "bare" function calls
 2. calling a function expression that's a property of an object
@@ -90,7 +93,7 @@ byronPoodle.warn();
 they are often referred to as `method`s. We've seen plenty of methods already.
 For example, in earlier lessons we learned how to use `Array` methods. Any time
 we create an array, that array _inherits_ all the properties that belong to
-`Array` objects in JavaScript, including all of their methods. We call those
+`Array` objects in JavaScript, including all of their methods. We can call those
 array methods in exactly the same way we call `byronPoodle`'s `warn` method:
 
 ```js
@@ -104,10 +107,10 @@ arr;
 ### The Execution Context of Methods
 
 When you call a function expression that's a property of an object — a method —
-that function expression's execution context is quite simply the object on which
-the function is called, i.e., the object to the left of the dot. Recall from the
-previous lesson that the `this` keyword can be used inside a function to return
-the current execution context. Let's log `this` from inside the `warn` method:
+that function expression's `this` object is quite simply the object on which the
+function is called, i.e., the object to the left of the dot. Recall from the
+previous lesson that the `this` keyword can be used inside a function to access
+the object and its properties; let's log `this` from inside the `warn` method:
 
 ```js
 const byronPoodle = {
@@ -128,10 +131,10 @@ byronPoodle.warn();
 // LOG: {name: "Byron", ageInYears: 2, warn: ƒ}
 ```
 
-As you can see, the execution context of `byronPoodle`'s `warn` method is the
+As you can see, the value of `this` in `byronPoodle`'s `warn` method is the
 object itself. This makes sense logically: when we call a method (i.e., a
-function that belongs to an object), the execution context for that method is
-the object it belongs to.
+function that belongs to an object), the context for that method is the object
+it belongs to.
 
 What this means is that we can also use `this` in much more sophisticated ways
 inside our methods. Let's create a new object, `blakeDoodle`:
@@ -151,8 +154,8 @@ blakeDoodle.warn();
 // LOG: Blake the Labradoodle issues an ear-rupturing atomic bark when he hears noises in the apartment hallway
 ```
 
-To summarize, any time you call `someObject.someFunction()`, the context inside
-of `someFunction` will be the thing to the left of the `.`: `someObject`.
+To summarize, any time you call `someObject.someFunction()`, the `this` object
+inside of `someFunction` will be the thing to the left of the `.`: `someObject`.
 
 Let's look at another example. First, we'll create a couple of objects and a
 function expression that we'll assign to the variable name `speak`:
@@ -233,9 +236,9 @@ We wish we could say that the default context was **always** the global object.
 It'd make things simple.
 
 However, in JavaScript, if the engine sees the `String` "use strict" inside a
-function, it will _stop_ passing the implicit _execution context_ of the global
-object. If JavaScript sees `"use strict"` at the top of a JavaScript code file,
-it will apply this rule (and other strict behaviors) to _all functions_.
+function, it will _stop_ passing the global object. If JavaScript sees `"use
+strict"` at the top of a JavaScript code file, it will apply this rule (and
+other strict behaviors) to _all functions_.
 
 ```js
 function looseyGoosey() {
@@ -256,7 +259,7 @@ think `strict` prevents confusing bugs (seems wise!); others think it's an
 obvious rule of the language and squelching it is against the language's love of
 functions (a decent argument!). Generally, we advise you to think of the
 "default mode" as the one that permits an _implicit_ presumption of context. For
-more on strict-mode, see the Resources.
+more on strict mode, see the Resources.
 
 ### **Special Case**: Implicitly-Set Context in Object-Oriented Programming
 
@@ -284,10 +287,10 @@ class Poodle{
 }
 ```
 
-All new members of the class (instances) will have all of the properties defined
-in the constructor as well as any methods defined inside the Class. For our
-example, when we create a new instance, that new object is the implicitly-set
-execution context for the class's `warn` method:
+All new members of the class (instances) will have all of the properties that
+are defined in the constructor as well as any methods defined inside the Class.
+For our example, when we create a new instance, that new object is the
+implicitly-set context object for the class's `warn` method:
 
 ```js
 const byron = new Poodle("Byron", "he");
@@ -302,12 +305,13 @@ execution context extend naturally to the OOP case.
 
 To sum up the discussion thus far:
 
-1. Execution context is set at function call-time, implicitly or explicitly.
-2. In "bare" function calls, the context is automatically set to the global
+1. Execution context is set at function call-time and includes a context object
+   (`this`) that is passed to the function, either implicitly or explicitly.
+2. In "bare" function calls, the context object is automatically set to the global
    object unless prevented by `"use strict"`.
-3. In "non-bare" function calls, the context is automatically set to the "object
-   to the left of the dot."
-4. (For Object-Oriented JavaScript) Execution context defaults to the new thing
+3. In "non-bare" function calls, the context object is automatically set to the
+   "object to the left of the dot."
+4. (For Object-Oriented JavaScript) The context object defaults to the new thing
    being created in a `class`'s `constructor`
 
 This covers the _implicit_ context-setting rules. We'll now learn about the
