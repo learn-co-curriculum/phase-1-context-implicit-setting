@@ -1,4 +1,4 @@
-# JavaScript Context: Implicitly Setting Execution Context
+# Context and Implicit Setting
 
 ## Learning Goals
 
